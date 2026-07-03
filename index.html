@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEF Weekly Report — July 2, 2026</title>
+<style>
+  :root {
+    --green: #1D9E75; --green-bg: #E1F5EE; --green-dk: #0F6E56;
+    --red: #D85A30; --red-bg: #FAECE7; --red-dk: #993C1D;
+    --blue: #185FA5; --blue-bg: #E6F1FB;
+    --amber: #BA7517; --amber-bg: #FFF8EC;
+    --gray: #5F5E5A; --gray-bg: #F1EFE8;
+    --txt: #111110; --txt2: #4a4a47; --txt3: #6b6b69;
+    --bdr: #d4d3cf; --bg: #ffffff; --bg2: #f8f8f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         font-size: 14px; color: var(--txt); background: var(--bg);
+         max-width: 860px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* Header */
+  .report-header { border-bottom: 2px solid var(--txt); padding-bottom: 16px; margin-bottom: 28px; }
+  .report-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .report-header .subtitle { font-size: 13px; color: var(--txt3); margin-top: 4px; }
+  .report-header .meta { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
+  .meta-item { background: var(--bg2); border: 0.5px solid var(--bdr);
+               border-radius: 6px; padding: 8px 14px; text-align: center; }
+  .meta-item .val { font-size: 18px; font-weight: 600; }
+  .meta-item .lbl { font-size: 11px; color: var(--txt3); margin-top: 2px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* Section headers */
+  .section { margin-bottom: 36px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr); }
+  .section-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: .05em; }
+  .badge-sale    { background: var(--red-bg);   color: var(--red-dk); }
+  .badge-fair    { background: var(--amber-bg); color: var(--amber); }
+  .badge-rich    { background: var(--blue-bg);  color: var(--blue); }
+  .badge-nav     { background: var(--gray-bg);  color: var(--gray); }
+  .section-title { font-size: 16px; font-weight: 600; }
+  .section-desc  { font-size: 12px; color: var(--txt3); margin-bottom: 14px; line-height: 1.6; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--bg2); }
+  th { text-align: left; font-size: 11px; font-weight: 600; color: var(--txt3);
+       text-transform: uppercase; letter-spacing: .04em;
+       padding: 8px 10px; border-bottom: 1px solid var(--bdr); white-space: nowrap; }
+  td { padding: 9px 10px; border-bottom: 0.5px solid #ebe9e4; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #faf9f7; }
+  .t-ticker { font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .t-price  { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .t-dp     { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .t-z      { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .t-note   { color: var(--txt2); line-height: 1.5; font-size: 12.5px; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .neu { color: var(--txt3); }
+
+  /* Z-score colored cells */
+  .z-hot    { color: var(--red-dk);   background: var(--red-bg); border-radius: 4px; padding: 2px 6px; }
+  .z-warm   { color: #8B4500;         background: #FFF0D6;       border-radius: 4px; padding: 2px 6px; }
+  .z-cool   { color: var(--green-dk); background: var(--green-bg); border-radius: 4px; padding: 2px 6px; }
+  .z-hot2   { color: var(--blue);     background: var(--blue-bg); border-radius: 4px; padding: 2px 6px; }
+
+  /* Inline badges in notes */
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px;
+         border-radius: 10px; margin-right: 3px; vertical-align: middle; text-transform: uppercase; letter-spacing: .04em; }
+  .tag-catalyst { background: #E6F1FB; color: var(--blue); }
+  .tag-insider  { background: var(--green-bg); color: var(--green-dk); }
+  .tag-warn     { background: var(--red-bg); color: var(--red-dk); }
+  .tag-watch    { background: var(--amber-bg); color: var(--amber); }
+
+  /* NAV section */
+  .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .nav-card { border: 0.5px solid var(--bdr); border-radius: 8px; padding: 14px 16px; }
+  .nav-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .nav-card.constructive { border-left: 3px solid var(--green); }
+  .nav-card.destructive  { border-left: 3px solid var(--red); }
+  .nav-card.watchlist    { border-left: 3px solid var(--amber); }
+  .nav-tickers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .nav-ticker { font-size: 12px; font-weight: 600; padding: 2px 8px;
+                border-radius: 12px; background: var(--bg2); border: 0.5px solid var(--bdr); }
+  .nav-card p { font-size: 12px; color: var(--txt2); line-height: 1.6; }
+
+  /* Summary box */
+  .summary-box { background: var(--bg2); border: 0.5px solid var(--bdr);
+                 border-left: 3px solid var(--txt); border-radius: 8px;
+                 padding: 16px 18px; margin-bottom: 28px; }
+  .summary-box h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--txt3); }
+  .summary-box p  { font-size: 13px; color: var(--txt2); line-height: 1.7; margin-bottom: 8px; }
+  .summary-box p:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid var(--bdr);
+            font-size: 11px; color: var(--txt3); line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    .nav-grid { grid-template-columns: 1fr; }
+    .meta { flex-direction: column; }
+    table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <h1>CEF Weekly Report</h1>
+  <div class="subtitle">QTI Capital · DSM Framework · July 2, 2026</div>
+  <div class="meta">
+    <div class="meta-item"><div class="val">27</div><div class="lbl">Funds tracked</div></div>
+    <div class="meta-item"><div class="val" style="color:#1D9E75">+$4.85</div><div class="lbl">Portfolio net change</div></div>
+    <div class="meta-item"><div class="val">Jul 14</div><div class="lbl">CSQ ex-div</div></div>
+    <div class="meta-item"><div class="val">Jul 17</div><div class="lbl">UTG ex-div</div></div>
+  </div>
+</div>
+
+<div class="summary-box">
+  <h3>Weekly Theme</h3>
+  <p>The dominant theme entering July is divergence between quality and dislocation. High-momentum tech and infrastructure names (BST, NXG, AIO, BME) continue to re-rate upward while the REIT sleeve (RQI, RNP, RFI) and UTG remain technically dislocated despite constructive fundamental backdrops.</p>
+  <p>Two near-term income catalysts emerge this week: UTG's discount reversion is visibly underway ahead of the July 17 ex-div record date, and CSQ declared a second distribution raise today ($0.1225→$0.135, +10.2%, ex-div July 14) — its second raise in six months, cumulative +31.7%. Both events support positioning before the respective record dates.</p>
+</div>
+
+<!-- HIGH VALUE -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-sale">On Sale</span>
+    <span class="section-title">High Value / Dislocated</span>
+  </div>
+  <p class="section-desc">Funds trading at significant discounts relative to their 1-year averages, as indicated by deeply negative Z1Y scores. These represent the highest-conviction dislocation setups in the current universe.</p>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Price</th><th>D/P</th><th>Z1Y</th><th>Analyst Note</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t-ticker neg">UTG</td>
+        <td class="t-price">$39.85</td>
+        <td class="t-dp neg">-2.76%</td>
+        <td class="t-z"><span class="z-hot">-1.95</span></td>
+        <td class="t-note"><span class="tag tag-catalyst">Ex-div Jul 17</span><span class="tag tag-insider">Insider buy</span> Best single-session improvement today (+1.17 pts). Discount narrowing sharply as ex-div approaches. Two directors bought open market (Jun 24 &amp; 26). Distribution raised $0.20→$0.21/month (+5%). Dislocation thesis actively resolving. QTI initiated 246 shares at $40.68.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">RQI</td>
+        <td class="t-price">$12.50</td>
+        <td class="t-dp neg">-8.29%</td>
+        <td class="t-z"><span class="z-hot">-2.15</span></td>
+        <td class="t-note"><span class="tag tag-warn">Z3M -1.86</span> REIT-Aggressive; discount 5+ pts wider than -3.24% 52-week avg. Multi-week dislocation pattern. Equity REITs +14% YTD — no broad sector weakness confirmed. Leveraged at 27.93%. Recovery trending but choppy.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">RNP</td>
+        <td class="t-price">$20.65</td>
+        <td class="t-dp neg">-7.02%</td>
+        <td class="t-z"><span class="z-hot">-1.42</span></td>
+        <td class="t-note">REIT-Balanced; discount more than 6 pts wider than -0.99% avg. Discount is price-driven, not NAV-driven — NAV holding steady. Leveraged at 29.69%.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">RFI</td>
+        <td class="t-price">$11.48</td>
+        <td class="t-dp neg">-4.17%</td>
+        <td class="t-z"><span class="z-hot">-1.47</span></td>
+        <td class="t-note">REIT-Defensive, effectively unleveraged (0.04%). Historically trades near par (+0.10% avg) — now at -4.17%. Structurally the most rate-resilient REIT CEF in the universe. Three-week recovery trend intact. Best risk-adjusted REIT entry.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">GLU</td>
+        <td class="t-price">$19.30</td>
+        <td class="t-dp neg">-4.50%</td>
+        <td class="t-z"><span class="z-hot">-1.43</span></td>
+        <td class="t-note">Discount more than 4 pts wider than -0.21% average — historically unusual. No specific catalyst identified. Worth monitoring for entry setup.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">PDI</td>
+        <td class="t-price">$16.70</td>
+        <td class="t-dp pos">+4.77%</td>
+        <td class="t-z"><span class="z-hot">-1.13</span></td>
+        <td class="t-note"><span class="tag tag-warn">NAV erosion</span> Z1Y improving from -1.67 low. Premium has narrowed substantially from 9.43% 52-week avg. Yield 15.84% but LT momentum -22.10% remains worst in universe. Risk: distributions may be outpacing NAV generation. Leveraged at 31.73%.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">EOI</td>
+        <td class="t-price">$19.75</td>
+        <td class="t-dp neg">-6.04%</td>
+        <td class="t-z"><span class="z-hot">-1.11</span></td>
+        <td class="t-note">Unleveraged option-income fund at -6.04% vs. -2.67% avg. Quiet but persistent orange-quadrant resident. Tier 1 defensive holding — rate-insensitive.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker neg">BDJ</td>
+        <td class="t-price">$9.65</td>
+        <td class="t-dp neg">-6.94%</td>
+        <td class="t-z"><span class="z-warm">-0.73</span></td>
+        <td class="t-note">Unleveraged option-income; Z1Y improving steadily this week. Discount wider than -5.83% avg. Tier 1 defensive holding. Prior add trigger fired Jun 8 at Z1Y ≤ -2.00; Z1Y has since recovered — original entry window closed.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FAIR VALUE -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-fair">Fair Value</span>
+    <span class="section-title">Steady State</span>
+  </div>
+  <p class="section-desc">Funds trading within normal historical range. No compelling entry or exit signal. Monitor for movement toward either extreme.</p>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Price</th><th>D/P</th><th>Z1Y</th><th>Analyst Note</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">CSQ</td>
+        <td class="t-price">$20.52</td>
+        <td class="t-dp neg">-9.20%</td>
+        <td class="t-z"><span class="z-warm">-0.70</span></td>
+        <td class="t-note"><span class="tag tag-catalyst">Ex-div Jul 14</span> Distribution raised today: $0.1225→$0.135/share (+10.2%). Second raise in six months — cumulative +31.7%. 5-star Morningstar across all timeframes. Discount modestly wider than -7.61% avg. Entry improving with catalyst approaching.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">PCN</td>
+        <td class="t-price">$11.87</td>
+        <td class="t-dp pos">+3.22%</td>
+        <td class="t-z"><span class="z-warm">-1.19</span></td>
+        <td class="t-note">PIMCO near-unleveraged (5.84%). Z1Y improving from -1.36 low. Premium well below 6.56% historical avg — modestly attractive vs. own history. Best structural choice among PIMCO trio for rate-hike resilience.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">ERH</td>
+        <td class="t-price">$12.14</td>
+        <td class="t-dp neg">-7.75%</td>
+        <td class="t-z"><span class="z-warm">+0.11</span></td>
+        <td class="t-note">Utility-leveraged; perfectly neutral Z1Y. Discount slightly narrower than -7.90% avg. No signal in either direction. QTI holding — steady income contributor.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">PDO</td>
+        <td class="t-price">$13.25</td>
+        <td class="t-dp pos">+3.03%</td>
+        <td class="t-z"><span class="z-warm">-0.45</span></td>
+        <td class="t-note">PIMCO high-leverage (34.4%). Z1Y trending toward neutral from -1.53. Better near-term momentum than PDI. Premium below 3.80% avg. Rate-sensitive via leverage.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">DNP</td>
+        <td class="t-price">$10.84</td>
+        <td class="t-dp pos">+7.75%</td>
+        <td class="t-z"><span class="z-cool">+0.72</span></td>
+        <td class="t-note">Utility-leveraged; premium in line with +5.79% avg. Stable income holding, Tier 3 defensive sleeve. Steady NAV performance.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">ETG</td>
+        <td class="t-price">$23.46</td>
+        <td class="t-dp neg">-9.03%</td>
+        <td class="t-z"><span class="z-warm">-1.10</span></td>
+        <td class="t-note">Discount wider than avg; modest improvement this week. Z3M +1.09 suggests short-term recovery in progress. Not a current holding.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker" style="color:var(--amber)">GDV</td>
+        <td class="t-price">$29.57</td>
+        <td class="t-dp neg">-10.88%</td>
+        <td class="t-z"><span class="z-warm">-0.26</span></td>
+        <td class="t-note">Nearly back to neutral after a sharp -2.37 spike on Jun 26. Rapid mean reversion over 5 sessions — that reading was a technical outlier. Most volatile fund in the universe by Z1Y movement (score 1.42).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- EXPENSIVE -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-rich">Expensive</span>
+    <span class="section-title">Momentum Heavy / Richly Valued</span>
+  </div>
+  <p class="section-desc">Funds trading at premiums or narrow discounts significantly above historical norms. Quality may be real but valuation offers little margin of safety at current levels.</p>
+  <table>
+    <thead>
+      <tr><th>Ticker</th><th>Price</th><th>D/P</th><th>Z1Y</th><th>Analyst Note</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t-ticker pos">NXG</td>
+        <td class="t-price">$63.03</td>
+        <td class="t-dp pos">+4.86%</td>
+        <td class="t-z"><span class="z-cool">+1.91</span></td>
+        <td class="t-note"><span class="tag tag-warn">Pass confirmed</span> Strongest Z1Y in universe. LT momentum +51.29% — highest in the book. Premium vs. -1.86% 52-week avg marks a dramatic re-rating from deep orange in late June. Momentum buyers in control. Not a holding.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker pos">BME</td>
+        <td class="t-price">$43.65</td>
+        <td class="t-dp neg">-3.96%</td>
+        <td class="t-z"><span class="z-cool">+1.08</span></td>
+        <td class="t-note"><span class="tag tag-warn">Rich vs. history</span> Healthcare unleveraged; Z1Y +1.08 and climbing. Discount far narrower than -6.09% avg. Quality fund with substantial unrealized gain in QTI portfolio. Adding here buys strength at premium to own history.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker pos">HTD</td>
+        <td class="t-price">$25.58</td>
+        <td class="t-dp neg">-4.69%</td>
+        <td class="t-z"><span class="z-cool">+1.19</span></td>
+        <td class="t-note">Utility-leveraged; Z1Y among the highest in the holdings universe. Discount significantly narrower than -6.23% avg. Not a current holding.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker pos">BST</td>
+        <td class="t-price">$48.50</td>
+        <td class="t-dp neg">-5.70%</td>
+        <td class="t-z"><span class="z-cool">+0.43</span></td>
+        <td class="t-note">Tech-Income; add trigger played out fully (Z1Y from -3.13 to +0.43). Discount now <em>inside</em> the -6.42% 52-week avg — mild technical richness. ST momentum +9.74%, LT +18.04%. Let position run; no add framework signal active. Largest income contributor in QTI portfolio.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker pos">UTF</td>
+        <td class="t-price">$27.55</td>
+        <td class="t-dp neg">-2.62%</td>
+        <td class="t-z"><span class="z-cool">+0.40</span></td>
+        <td class="t-note">Utility-Infrastructure; Z1Y positive and improving. Discount significantly narrower than -4.28% avg. Strong global infrastructure tailwinds. QTI holding — let run.</td>
+      </tr>
+      <tr>
+        <td class="t-ticker pos">ASGI</td>
+        <td class="t-price">$23.26</td>
+        <td class="t-dp pos">+4.49%</td>
+        <td class="t-z"><span class="z-cool">+0.88</span></td>
+        <td class="t-note">Premium +4.49% vs. +1.73% avg. Momentum building but valuation has run ahead of history. Not a current holding.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NAV ANALYSIS -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-nav">NAV Analysis</span>
+    <span class="section-title">Constructive vs. Destructive Performance</span>
+  </div>
+  <p class="section-desc">Evaluates whether funds are growing underlying NAV or eroding it through distributions that exceed earnings — the key distinction between sustainable income and return-of-capital disguised as yield.</p>
+
+  <div class="nav-grid">
+    <div class="nav-card constructive">
+      <h4 style="color:var(--green-dk)">✅ Constructive — NAV holding or growing</h4>
+      <div class="nav-tickers">
+        <span class="nav-ticker">AIO</span><span class="nav-ticker">BME</span><span class="nav-ticker">BST</span>
+        <span class="nav-ticker">BUI</span><span class="nav-ticker">DNP</span><span class="nav-ticker">HTD</span>
+        <span class="nav-ticker">NXG</span><span class="nav-ticker">UTF</span>
+      </div>
+      <p>Tech and infrastructure names show the strongest constructive NAV patterns. BST NAV ($51.43) and BME NAV ($45.45) have both expanded meaningfully. BUI and UTG NAVs are stable. DNP and UTF distributing from genuine earnings.</p>
+    </div>
+
+    <div class="nav-card destructive">
+      <h4 style="color:var(--red-dk)">⚠ Destructive — NAV below 52-week average</h4>
+      <div class="nav-tickers">
+        <span class="nav-ticker">PDI</span><span class="nav-ticker">PCN</span><span class="nav-ticker">RFI</span>
+      </div>
+      <p>PDI NAV ($15.94) significantly below its 52-week average price zone ($18.17) — clearest example of payout outpacing earnings. PCN ($11.50 NAV vs. $12.53 52-week avg price). Pattern consistent with leveraged bond funds in a hawkish rate environment.</p>
+    </div>
+
+    <div class="nav-card watchlist" style="grid-column: span 2;">
+      <h4 style="color:var(--amber)">👁 Watch — Price-driven dislocation, NAV holding</h4>
+      <div class="nav-tickers">
+        <span class="nav-ticker">UTG</span><span class="nav-ticker">RQI</span>
+        <span class="nav-ticker">RNP</span><span class="nav-ticker">RFI</span>
+      </div>
+      <p>REIT sleeve and UTG have seen discount widening that is <em>price-driven, not NAV-driven</em> — the underlying NAVs are holding steady while share prices have disconnected. This is the defining characteristic of technical dislocation vs. fundamental deterioration, and the primary basis for the dislocation investment thesis in these names. UTG NAV ($40.98) is recovering in line with the Z1Y improvement today.</p>
+    </div>
+  </div>
+</div>
+
+<!-- UPCOMING CATALYSTS -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge" style="background:#EEF2FF;color:#4338CA">Catalysts</span>
+    <span class="section-title">Near-Term Events</span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Fund</th><th>Event</th><th>Detail</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:600;white-space:nowrap">Jul 14</td>
+        <td class="t-ticker" style="color:var(--amber)">CSQ</td>
+        <td>Ex-dividend date</td>
+        <td class="t-note">$0.135/share — new rate effective today following +10.2% raise. Payable July 21. Record date July 14.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;white-space:nowrap">Jul 17</td>
+        <td class="t-ticker neg">UTG</td>
+        <td>Ex-dividend date</td>
+        <td class="t-note">$0.21/share — raised from $0.20 (+5%), first payment at new rate. Payable July 31. Record date July 17. Discount reversion accelerating.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;white-space:nowrap">Aug 18</td>
+        <td class="t-ticker neg">UTG</td>
+        <td>Ex-dividend date</td>
+        <td class="t-note">Second $0.21/share payment. Record date Aug 18.</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;white-space:nowrap">Sep 17</td>
+        <td class="t-ticker neg">UTG</td>
+        <td>Ex-dividend date</td>
+        <td class="t-note">Third $0.21/share payment. Record date Sep 17. Distribution raise covers full July–September quarter.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <p><strong>Methodology:</strong> Z1Y (1-year z-score) governs quadrant classification and entry signals. Funds are classified green (Z≥0, discount), blue (Z≥0, premium), orange (Z&lt;0, discount), or gray (Z&lt;0, premium). Momentum data (ST/LT) sourced from separate brokerage export. All 27 funds tracked daily. Net price change reflects QTI Capital taxable CEF sleeve.</p>
+  <br>
+  <p><em>For informational purposes only. Not investment advice. Past performance is no guarantee of future results. Always conduct your own due diligence before making investment decisions. This report is generated by the QTI Capital DSM Framework CEF Engine.</em></p>
+  <br>
+  <p>QTI Capital · DSM Framework · CEF Engine · Report date: July 2, 2026</p>
+</div>
+
+</body>
+</html>
