@@ -18,7 +18,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Georgia",serif;background:var(--bg);color:var(--ink);line-height:1.65}
-  .wrap{max-width:900px;margin:0 auto;padding:32px 24px 60px}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 60px}
 
   /* MASTHEAD */
   .masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--rule);padding:18px 0 14px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px}
@@ -45,8 +45,8 @@
   .prose p:last-child{margin-bottom:0}
   .theme-pill{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:10px;background:var(--amber-lt);color:var(--amber);margin-bottom:14px}
 
-  /* ── VALUATION SNAPSHOT — analyst note format ── */
-  .val-block{margin-bottom:20px}
+  /* VALUATION SNAPSHOT */
+  .val-block{margin-bottom:24px}
   .val-block-hdr{display:flex;align-items:center;gap:10px;margin-bottom:6px}
   .val-tag{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:3px 9px;border-radius:4px}
   .val-tag.on-sale{background:var(--orange-lt);color:var(--orange)}
@@ -55,57 +55,46 @@
   .val-block-hdr h3{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;font-weight:700;color:var(--ink)}
   .val-block-subtitle{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5}
 
-  /* Column header row */
+  /* Column grid: ticker | price | d/p | z1y | yield | note */
   .fund-col-hdr{
     display:grid;
-    grid-template-columns:68px 72px 72px 68px 1fr;
-    gap:0 8px;
+    grid-template-columns:60px 66px 72px 58px 62px 1fr;
+    gap:0 6px;
     padding:5px 12px;
     font-family:-apple-system,BlinkMacSystemFont,sans-serif;
     font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
-    color:var(--muted);
-    border-bottom:1px solid var(--rule);
-    margin-bottom:0;
+    color:var(--muted);border-bottom:1px solid var(--rule);
   }
-
-  /* Fund row */
   .fund-row{
     background:var(--card);
     border:1px solid var(--rule);
     border-top:none;
-    padding:12px 12px 12px 12px;
+    padding:11px 12px;
     display:grid;
-    grid-template-columns:68px 72px 72px 68px 1fr;
-    gap:0 8px;
+    grid-template-columns:60px 66px 72px 58px 62px 1fr;
+    gap:0 6px;
     align-items:start;
     font-family:-apple-system,BlinkMacSystemFont,sans-serif;
   }
-  .fund-row:first-of-type{border-top:1px solid var(--rule);border-radius:6px 6px 0 0}
-  .fund-row:last-of-type{border-radius:0 0 6px 6px}
-  .fund-row:only-of-type{border-radius:6px}
-  .fund-row + .fund-row{border-top:none}
+  .fund-rows-wrap .fund-row:first-child{border-top:1px solid var(--rule);border-radius:6px 6px 0 0}
+  .fund-rows-wrap .fund-row:last-child{border-radius:0 0 6px 6px}
+  .fund-rows-wrap .fund-row:only-child{border-radius:6px;border-top:1px solid var(--rule)}
 
-  .fund-row .ticker{font-size:14px;font-weight:800;letter-spacing:.2px;line-height:1.3}
-  .fund-row .ticker.orange{color:var(--orange)}
-  .fund-row .ticker.green{color:var(--green)}
-  .fund-row .ticker.blue{color:var(--blue)}
-  .fund-row .ticker.amber{color:var(--amber)}
-  .fund-row .ticker.gray{color:var(--gray)}
+  .fund-row .ticker{font-size:13.5px;font-weight:800;letter-spacing:.2px;line-height:1.3}
+  .fund-row .ticker.col-o{color:var(--orange)}
+  .fund-row .ticker.col-g{color:var(--green)}
+  .fund-row .ticker.col-b{color:var(--blue)}
+  .fund-row .ticker.col-x{color:var(--gray)}
+  /* held marker */
+  .fund-row .ticker .hmark{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink);margin-left:3px;vertical-align:middle;opacity:0.35}
 
-  .fund-row .price,.fund-row .dp,.fund-row .z1y{
-    font-size:13px;font-weight:600;padding-top:1px;
-  }
-  .fund-row .dp.neg{color:var(--orange)}
-  .fund-row .dp.pos{color:var(--green)}
-  .fund-row .z1y.neg{color:var(--orange)}
-  .fund-row .z1y.pos{color:var(--green)}
+  .fund-row .price,.fund-row .dp,.fund-row .z1y,.fund-row .yld{font-size:12.5px;font-weight:600;padding-top:1px}
+  .neg{color:var(--orange)}.pos{color:var(--green)}
+  .fund-row .yld{color:var(--sub)}
 
-  /* Analyst note column */
-  .note{font-size:12.5px;line-height:1.55;color:var(--sub)}
-  .note .badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-
-  /* Inline badges */
-  .badge{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:3px;white-space:nowrap}
+  .note{font-size:12px;line-height:1.55;color:var(--sub)}
+  .note .badges{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px}
+  .badge{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 6px;border-radius:3px;white-space:nowrap}
   .badge.rights{background:#FEF3C7;color:#92400E}
   .badge.record{background:#DBEAFE;color:#1E40AF}
   .badge.insider{background:var(--green-lt);color:#065F46}
@@ -115,6 +104,8 @@
   .badge.caution{background:#FEE2E2;color:#991B1B}
   .badge.trigger{background:var(--green-lt);color:#065F46}
   .badge.corp{background:var(--amber-lt);color:var(--amber)}
+  .badge.hold{background:var(--gray-lt);color:var(--gray)}
+  .badge.univ{background:var(--gray-lt);color:var(--gray)}
 
   /* DISTRIBUTION QUALITY */
   .nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:8px}
@@ -144,18 +135,17 @@
   .cal tbody td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
   .cal tbody tr:last-child td{border-bottom:none}
 
+  /* LEGEND */
+  .legend{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:11px;color:var(--muted);margin-top:8px;display:flex;gap:14px;flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:4px}
+  .dot-held{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:0.4}
+
   /* FOOTER */
   .footer{border-top:1px solid var(--rule);margin-top:40px;padding-top:16px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:11px;color:var(--muted);line-height:1.6}
   .footer strong{color:var(--sub)}
 
-  @media(max-width:640px){
-    .fund-col-hdr,.fund-row{grid-template-columns:56px 62px 58px 56px 1fr;font-size:11.5px}
-    .fund-row .ticker{font-size:13px}
-  }
-  @media(max-width:480px){
-    .fund-col-hdr{display:none}
-    .fund-row{grid-template-columns:1fr 1fr 1fr;row-gap:4px}
-    .fund-row .note{grid-column:1/-1}
+  @media(max-width:700px){
+    .fund-col-hdr,.fund-row{grid-template-columns:52px 58px 64px 50px 54px 1fr;font-size:11px}
   }
 </style>
 </head>
@@ -175,7 +165,7 @@
 <div class="sumbar">
   <div class="cell"><div class="label">Week Net Δ</div><div class="val neg">−$16.63</div><div class="sub">3 sessions (Tue–Thu)</div></div>
   <div class="cell"><div class="label">Largest Session Loss</div><div class="val neg">−$10.34</div><div class="sub">07/17 (Thursday)</div></div>
-  <div class="cell"><div class="label">Quadrants (Universe)</div><div class="val" style="font-size:14px;padding-top:3px"><span style="color:var(--green)">G6</span> · <span style="color:var(--blue)">B5</span> · <span style="color:var(--orange)">O13</span> · <span style="color:var(--gray)">X3</span></div><div class="sub">Z1Y governs classification</div></div>
+  <div class="cell"><div class="label">Quadrants (Universe)</div><div class="val" style="font-size:14px;padding-top:3px"><span style="color:var(--green)">G6</span> · <span style="color:var(--blue)">B5</span> · <span style="color:var(--orange)">O13</span> · <span style="color:var(--gray)">X3</span></div><div class="sub">Z1Y governs · 27 funds</div></div>
   <div class="cell"><div class="label">Deepest Z1Y</div><div class="val neg" style="font-size:16px;padding-top:4px">RQI −2.65</div><div class="sub">Universe extreme</div></div>
   <div class="cell"><div class="label">Active Triggers</div><div class="val" style="font-size:15px;padding-top:4px">BUI · BST</div><div class="sub">BUI reset · BST proximity</div></div>
 </div>
@@ -185,134 +175,253 @@
   <div class="section-hdr"><h2>Weekly Theme</h2><span class="eyebrow">Narrative</span></div>
   <div class="theme-pill">Rate headwind returns</div>
   <div class="prose">
-    <p>The week's defining pressure point was macro, not fund-specific: the 10-year Treasury yield climbing back toward 4.6%, reasserting itself as a ceiling on REIT multiples and a drag on leveraged income funds broadly. VNQ has delivered a solid 12% YTD return through mid-July but stalled completely over the past month — the sector bid that carried REITs through the first half has gone quiet. The CEF sleeve felt that transition acutely, with the REIT sub-sleeve (RQI, RNP, RFI) posting three consecutive sessions of discount widening even as underlying NAVs held steady or rose.</p>
+    <p>The week's defining pressure point was macro, not fund-specific: the 10-year Treasury yield climbing back toward 4.6%, reasserting itself as a ceiling on REIT multiples and a drag on leveraged income funds broadly. VNQ delivered a solid 12% YTD return through mid-July but stalled completely over the past month — the sector bid that carried REITs through the first half has gone quiet. The CEF sleeve felt that transition acutely, with the REIT sub-sleeve (RQI, RNP, RFI) posting three consecutive sessions of discount widening even as underlying NAVs held steady or rose.</p>
     <p>The week's most analytically important signal is precisely that NAV/price divergence in the REIT sleeve. RQI's NAV rose from $13.52 to $13.82 across the three sessions while price fell, widening the discount from −9.69% to −10.49%. This is textbook price-driven dislocation — the underlying portfolio is not deteriorating. But it also raises the central question entering next week: is this the tail end of post-rights-offering mechanics, or is the market repricing RQI's discount level against a higher-for-longer rate environment? Three clean sessions of widening without a single reversal shifts the burden of proof.</p>
-    <p>Elsewhere, Thursday's broad −$10.34 loss was not isolated. The tech sleeve (BST) saw its largest single-session Z1Y deterioration in the current window (−0.94pt), approaching the −2.00 trigger threshold that fired in June. The BUI second-tranche trigger briefly lit up on 07/15 with a Z1Y zero-cross, then reversed sharply the following session — the two-session confirmation rule reset. Entering the weekend, the portfolio carries three active threads: RQI's post-expiry discount trajectory, BST's proximity to its trigger zone, and whether the REIT sector macro bid recovers or stays soft into next week.</p>
+    <p>Thursday's broad −$10.34 loss was not isolated — tech, REIT, and bond sleeves all contributed. BST saw its largest single-session Z1Y deterioration in the current window (−0.94pt), placing it 0.56pts from the trigger threshold that fired in June. The BUI second-tranche trigger briefly lit on 07/15 then reversed — the two-session confirmation rule reset. Entering the weekend: three active threads — RQI's post-expiry discount trajectory, BST's proximity to its trigger zone, and whether the REIT sector macro bid recovers or stays soft into next week.</p>
   </div>
 </div>
 
-<!-- VALUATION SNAPSHOT -->
+<!-- VALUATION SNAPSHOT — FULL 27-FUND UNIVERSE -->
 <div class="section">
-  <div class="section-hdr"><h2>Valuation Snapshot</h2><span class="eyebrow">Z1Y placement · Holdings universe · 07/17/2026</span></div>
+  <div class="section-hdr"><h2>Valuation Snapshot</h2><span class="eyebrow">Full 27-fund universe · Z1Y governs placement · 07/17/2026</span></div>
 
-  <!-- ON SALE -->
+  <div class="legend">
+    <span><span class="dot-held"></span> Dot = current holding</span>
+    <span style="color:var(--orange)">■ Orange quadrant</span>
+    <span style="color:var(--green)">■ Green quadrant</span>
+    <span style="color:var(--blue)">■ Blue quadrant</span>
+    <span style="color:var(--gray)">■ Gray quadrant</span>
+  </div>
+  <div style="height:14px"></div>
+
+  <!-- ══ ON SALE ══ -->
   <div class="val-block">
     <div class="val-block-hdr">
       <span class="val-tag on-sale">On Sale</span>
       <h3>High Value / Dislocated</h3>
     </div>
-    <div class="val-block-subtitle">Funds trading at significant discounts relative to 1-year historical averages. Z1Y governs classification. All entries confirmed as price-driven dislocation with NAV intact unless noted.</div>
+    <div class="val-block-subtitle">Z1Y ≤ −0.50. Funds trading at significant discounts relative to 1-year historical averages. All confirmed as price-driven unless noted.</div>
 
     <div class="fund-col-hdr">
-      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Analyst Note</span>
+      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Yield</span><span>Analyst Note</span>
     </div>
+    <div class="fund-rows-wrap">
 
-    <!-- RQI -->
-    <div class="fund-row">
-      <div class="ticker orange">RQI</div>
-      <div class="price">$12.37</div>
-      <div class="dp neg">−10.49%</div>
-      <div class="z1y neg">−2.65</div>
-      <div class="note">
-        <div class="badges"><span class="badge rights">RO Expiry Jul 15</span><span class="badge dist-qual">Gains-primary</span></div>
-        Deepest Z1Y in universe. Discount 7.0 pts wider than −3.46% avg. Rights offering (record Jun 18, expiry Jul 15) has been suppressing price since Jun 8 via dilution overhang. Two clean post-expiry sessions completed — both showed continued widening. NAV rising ($13.52 → $13.82) while price falls — pure price selling, not portfolio deterioration. Falsification test active: discount must begin compressing vs a constructive REIT tape for the technical thesis to hold. 10yr at ~4.6% is the macro headwind common to the entire REIT sleeve. Leveraged 27.65%. 2026 distributions ~100% LT capital gains harvest.
+      <!-- RQI -->
+      <div class="fund-row">
+        <div class="ticker col-o">RQI<span class="hmark"></span></div>
+        <div class="price">$12.37</div>
+        <div class="dp neg">−10.49%</div>
+        <div class="z1y neg">−2.65</div>
+        <div class="yld">8.71%</div>
+        <div class="note">
+          <div class="badges"><span class="badge rights">RO Expiry Jul 15</span><span class="badge dist-qual">Gains-primary</span></div>
+          Universe deepest Z1Y. Discount 7.0 pts wider than −3.46% avg. Two clean post-expiry sessions — both showed continued widening. NAV rising ($13.52→$13.82) while price falls: pure price selling. Falsification test active. 2026 distributions ~100% LT capital gains. Leveraged 27.65%.
+        </div>
       </div>
-    </div>
 
-    <!-- RFI -->
-    <div class="fund-row">
-      <div class="ticker orange">RFI</div>
-      <div class="price">$11.48</div>
-      <div class="dp neg">−5.12%</div>
-      <div class="z1y neg">−1.66</div>
-      <div class="note">
-        <div class="badges"><span class="badge dist-qual">ROC-primary ⚠</span></div>
-        REIT-Defensive. Effectively unleveraged (0.04%) — most rate-resilient REIT CEF in the universe. Discount 4.9 pts wider than −0.20% avg; historically trades near par. NAV $12.10, above 52-week avg price of $11.51. Structurally insulated from leverage cost channel but ~71% of distribution is return of capital (Mar 2026 YTD). That ROC-primary sourcing is the principal risk in this name — cheap vs z-score history, but the distribution quality cap limits how constructive the setup reads. Three consecutive sessions of deepening.
+      <!-- ETG -->
+      <div class="fund-row">
+        <div class="ticker col-o">ETG</div>
+        <div class="price">$23.02</div>
+        <div class="dp neg">−9.30%</div>
+        <div class="z1y neg">−1.14</div>
+        <div class="yld">6.71%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Leveraged equity. Discount 2.46pt wider than −6.84% avg. Not a current holding; included for universe context. NAV $25.60. Leveraged 15.92%.
+        </div>
       </div>
-    </div>
 
-    <!-- RNP -->
-    <div class="fund-row">
-      <div class="ticker orange">RNP</div>
-      <div class="price">$20.60</div>
-      <div class="dp neg">−7.87%</div>
-      <div class="z1y neg">−1.55</div>
-      <div class="note">
-        REIT-Balanced. Discount 6.3 pts wider than −1.58% avg — largest deviation from own norm of any REIT holding except RQI. NAV intact at $22.36. Price-driven dislocation, not fundamental. Leveraged 29.57%. Best distribution sourcing in the C&amp;S REIT sleeve: 57% NII / 37% LT gains / 0.5% ROC (Jun 2026 YTD) — the only REIT holding with a majority NII-primary classification. Three sessions of widening in tandem with broader sector softness.
+      <!-- RFI -->
+      <div class="fund-row">
+        <div class="ticker col-o">RFI<span class="hmark"></span></div>
+        <div class="price">$11.48</div>
+        <div class="dp neg">−5.12%</div>
+        <div class="z1y neg">−1.66</div>
+        <div class="yld">8.36%</div>
+        <div class="note">
+          <div class="badges"><span class="badge dist-qual">ROC-primary ⚠</span></div>
+          REIT-Defensive. Effectively unleveraged (0.04%). Discount 4.92pt wider than −0.20% avg. NAV $12.10 intact. ~71% of distribution is return of capital (Mar 2026 YTD) — structural ROC flag caps the constructiveness of the cheap z-score.
+        </div>
       </div>
-    </div>
 
-    <!-- BST -->
-    <div class="fund-row">
-      <div class="ticker orange">BST</div>
-      <div class="price">$44.86</div>
-      <div class="dp neg">−8.91%</div>
-      <div class="z1y neg">−1.44</div>
-      <div class="note">
-        <div class="badges"><span class="badge caution">Trigger proximity −2.00</span></div>
-        Tech sleeve. Z1Y dropped −0.94pt in a single session (07/17) — largest single-session deterioration in the holdings universe this week. NAV unchanged at $49.73; entirely price-driven. Prior Z1Y ≤ −2.00 trigger fired 06/08 and resolved fully by 06/30. Now 0.56pts from that threshold again. LT momentum +10.84% remains structurally positive. Unleveraged (0.10%). Distribution 58% ST gains / 42% LT gains / 0% NII — appreciation harvest. Monday open is the first meaningful read on whether this continues.
+      <!-- RNP -->
+      <div class="fund-row">
+        <div class="ticker col-o">RNP<span class="hmark"></span></div>
+        <div class="price">$20.60</div>
+        <div class="dp neg">−7.87%</div>
+        <div class="z1y neg">−1.55</div>
+        <div class="yld">7.88%</div>
+        <div class="note">
+          REIT-Balanced. Discount 6.29pt wider than −1.58% avg. NAV $22.36 intact. Best distribution sourcing in the C&amp;S REIT sleeve: 57% NII / 37% LT gains / 0.5% ROC (Jun 2026 YTD). Leveraged 29.57%.
+        </div>
       </div>
-    </div>
 
-    <!-- PCN -->
-    <div class="fund-row">
-      <div class="ticker gray">PCN</div>
-      <div class="price">$11.71</div>
-      <div class="dp pos">+2.54%</div>
-      <div class="z1y neg">−1.24</div>
-      <div class="note">
-        <div class="badges"><span class="badge nav-below-avg">Premium below avg</span></div>
-        PIMCO near-unleveraged (5.83%). Z1Y improved from −1.50 trough (07/15) to −1.24. Premium compressed substantially from +6.36% historical avg to +2.54% — the market is repricing toward NAV. NAV stable at $11.44. Best structural choice among PIMCO trio for rate-hike resilience (vs PDI exited, PDO at 34.5% leverage). Fiscal year ended 06/30 — watch for annual report or 19(a) notice confirming distribution source composition. Absence of recent 19(a) notices suggests NII-primary, but NAV erosion trend warrants caution. Yield 11.48%.
+      <!-- BST -->
+      <div class="fund-row">
+        <div class="ticker col-o">BST<span class="hmark"></span></div>
+        <div class="price">$44.86</div>
+        <div class="dp neg">−8.91%</div>
+        <div class="z1y neg">−1.44</div>
+        <div class="yld">6.51%</div>
+        <div class="note">
+          <div class="badges"><span class="badge caution">Trigger proximity −2.00</span></div>
+          Tech. Z1Y dropped −0.94pt in a single session (07/17) — largest single-session move in the holdings universe this week. NAV $49.73 unchanged — price-driven. Prior trigger fired 06/08; resolved 06/30. Now 0.56pts from that threshold. Unleveraged (0.10%). Distribution 58% ST gains / 42% LT / 0% NII.
+        </div>
       </div>
-    </div>
 
-    <!-- EOI -->
-    <div class="fund-row">
-      <div class="ticker orange">EOI</div>
-      <div class="price">$19.70</div>
-      <div class="dp neg">−5.83%</div>
-      <div class="z1y neg">−0.95</div>
-      <div class="note">
-        Unleveraged option-income fund. Discount 2.85 pts wider than −2.98% avg. NAV $21.13 intact. Effectively zero leverage (Eaton Vance equity sleeve). Best 5-year price preservation among comparable holdings. Option-income strategies have underperformed in high-momentum equity environments — sector headwind is the primary watch item. Distribution ~88–100% LT capital gains harvest with minimal NII. Gains-primary classification — not traditional income.
+      <!-- NBXG -->
+      <div class="fund-row">
+        <div class="ticker col-o">NBXG</div>
+        <div class="price">$14.89</div>
+        <div class="dp neg">−14.57%</div>
+        <div class="z1y neg">−1.21</div>
+        <div class="yld">9.42%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Tech/growth. Widest absolute discount in the universe at −14.57% vs −12.57% avg. Z1Y −1.21. Unleveraged. Not a current holding.
+        </div>
       </div>
-    </div>
 
-    <!-- BUI -->
-    <div class="fund-row">
-      <div class="ticker orange">BUI</div>
-      <div class="price">$27.87</div>
-      <div class="dp pos">+0.61%</div>
-      <div class="z1y neg">−0.57</div>
-      <div class="note">
-        <div class="badges"><span class="badge corp">Trigger reset 07/16</span></div>
-        Utility/infrastructure. Z1Y briefly crossed zero on 07/15 (+0.06) — 2nd-tranche trigger window opened — then reversed sharply to −0.57 the following session. Two-session confirmation rule reset. Premium slipped from +2.72% to +0.61% vs +2.49% avg. Cleanest distribution sourcing in the BlackRock sleeve: 45% NII / 55% ST gains / 0% ROC. Unleveraged (0.11%). Next zero-cross attempt with follow-through required to reopen the entry window.
+      <!-- PCN -->
+      <div class="fund-row">
+        <div class="ticker col-x">PCN<span class="hmark"></span></div>
+        <div class="price">$11.71</div>
+        <div class="dp pos">+2.54%</div>
+        <div class="z1y neg">−1.24</div>
+        <div class="yld">11.48%</div>
+        <div class="note">
+          <div class="badges"><span class="badge nav-below-avg">Premium below avg</span></div>
+          PIMCO near-unleveraged (5.83%). Premium compressed from +6.36% avg to +2.54% — market repricing toward NAV. Z1Y improving from −1.50 trough. Best structural choice among PIMCO trio for rate resilience. Fiscal year ended 06/30 — watch for 19(a) notice confirming distribution source.
+        </div>
       </div>
-    </div>
 
-    <!-- BDJ -->
-    <div class="fund-row">
-      <div class="ticker orange">BDJ</div>
-      <div class="price">$9.61</div>
-      <div class="dp neg">−6.79%</div>
-      <div class="z1y neg">−0.59</div>
-      <div class="note">
-        Unleveraged option-income (Tier 1 defensive). Z1Y oscillating: −0.34 (07/15) → −0.93 (07/16) → −0.59 (07/17). Mid-week amber flag (−0.59pt move on 07/16) partially recovered. Discount 0.91pt wider than −5.88% avg — mild dislocation. LT momentum +7.56%. Prior add trigger (Z1Y ≤ −2.00) fired 06/08 and played out — distant from that level currently. Distribution 50% NII / 50% LT gains: best-mixed sourcing in the sleeve. Unleveraged (0.12%). Trajectory constructive if Z1Y holds above −1.00.
+      <!-- RLTY -->
+      <div class="fund-row">
+        <div class="ticker col-o">RLTY</div>
+        <div class="price">$16.06</div>
+        <div class="dp neg">−8.65%</div>
+        <div class="z1y neg">−1.07</div>
+        <div class="yld">8.26%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> REIT. Discount 1.81pt wider than −6.84% avg. Z1Y −1.07. Leveraged 32.42%. Not a current holding; REIT sector weakness consistent with sleeve peers.
+        </div>
       </div>
-    </div>
 
-    <!-- AIO -->
-    <div class="fund-row">
-      <div class="ticker orange">AIO</div>
-      <div class="price">$25.47</div>
-      <div class="dp neg">−7.89%</div>
-      <div class="z1y neg">−0.22</div>
-      <div class="note">
-        Tech/alternatives. Discount 1.03pt wider than −6.86% avg — modest dislocation. Z1Y stable at −0.22. ST momentum −1.64%, LT momentum +12.31% — short-term softness within a strong LT trend. YTD price return +34.12%, the strongest in the holdings universe. NAV $28.39 intact. Distribution source unconfirmed pending BlackRock filing. Leveraged 11.74%.
+      <!-- GLU -->
+      <div class="fund-row">
+        <div class="ticker col-o">GLU</div>
+        <div class="price">$19.40</div>
+        <div class="dp neg">−3.46%</div>
+        <div class="z1y neg">−1.00</div>
+        <div class="yld">6.75%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Global equity income. Discount 3.08pt wider than −0.38% avg. Z1Y −1.00. Leveraged 17.61%. Not a current holding.
+        </div>
       </div>
-    </div>
-  </div><!-- /on sale block -->
 
-  <!-- FAIR VALUE -->
+      <!-- EOI -->
+      <div class="fund-row">
+        <div class="ticker col-o">EOI<span class="hmark"></span></div>
+        <div class="price">$19.70</div>
+        <div class="dp neg">−5.83%</div>
+        <div class="z1y neg">−0.95</div>
+        <div class="yld">8.02%</div>
+        <div class="note">
+          Unleveraged option-income. Discount 2.85pt wider than −2.98% avg. NAV $21.13 intact. Distribution ~88–100% LT capital gains harvest — not recurring income. Option-income strategies underperforming in high-momentum equity environment.
+        </div>
+      </div>
+
+      <!-- PDX -->
+      <div class="fund-row">
+        <div class="ticker col-o">PDX</div>
+        <div class="price">$21.07</div>
+        <div class="dp neg">−11.02%</div>
+        <div class="z1y neg">−0.99</div>
+        <div class="yld">7.66%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> PIMCO diversified. Discount 1.67pt wider than −9.35% avg. Z1Y −0.99. Leveraged 22.61%. Not a current holding.
+        </div>
+      </div>
+
+      <!-- EOS -->
+      <div class="fund-row">
+        <div class="ticker col-o">EOS</div>
+        <div class="price">$21.74</div>
+        <div class="dp neg">−7.88%</div>
+        <div class="z1y neg">−0.63</div>
+        <div class="yld">8.27%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Option-income equity. Discount 2.03pt wider than −5.85% avg. Z1Y −0.63. Unleveraged. Not a current holding; peer context to EOI.
+        </div>
+      </div>
+
+      <!-- BUI -->
+      <div class="fund-row">
+        <div class="ticker col-o">BUI<span class="hmark"></span></div>
+        <div class="price">$27.87</div>
+        <div class="dp pos">+0.61%</div>
+        <div class="z1y neg">−0.57</div>
+        <div class="yld">6.64%</div>
+        <div class="note">
+          <div class="badges"><span class="badge corp">2nd Tranche Trigger reset 07/16</span></div>
+          Utility/infrastructure. Z1Y zero-cross on 07/15 reversed sharply the following session. Trigger clock reset. Cleanest distribution in BlackRock sleeve: 45% NII / 55% ST gains / 0% ROC. Unleveraged (0.11%). Next zero-cross with follow-through required.
+        </div>
+      </div>
+
+      <!-- BDJ -->
+      <div class="fund-row">
+        <div class="ticker col-o">BDJ<span class="hmark"></span></div>
+        <div class="price">$9.61</div>
+        <div class="dp neg">−6.79%</div>
+        <div class="z1y neg">−0.59</div>
+        <div class="yld">7.71%</div>
+        <div class="note">
+          Unleveraged option-income (Tier 1 defensive). Z1Y oscillated mid-week (amber flag 07/16 on −0.59pt drop) then partially recovered. Discount 0.91pt wider than −5.88% avg. Distribution 50% NII / 50% LT gains. LT momentum +7.56% supportive.
+        </div>
+      </div>
+
+      <!-- PDI -->
+      <div class="fund-row">
+        <div class="ticker col-x">PDI</div>
+        <div class="price">$16.35</div>
+        <div class="dp pos">+3.81%</div>
+        <div class="z1y neg">−1.18</div>
+        <div class="yld">16.09%</div>
+        <div class="note">
+          <div class="badges"><span class="badge nav-erosion">Exited 07/14/2026</span></div>
+          <span class="badge univ">Exited position</span> Exited 07/14: NAV erosion confirmed, LT momentum −22.74% (worst in universe), distributions outpacing earnings. Premium +3.81% vs +9.01% avg — still compressing. Leveraged 31.75%. Included for universe completeness only.
+        </div>
+      </div>
+
+      <!-- PDO -->
+      <div class="fund-row">
+        <div class="ticker col-x">PDO</div>
+        <div class="price">$13.18</div>
+        <div class="dp pos">+3.29%</div>
+        <div class="z1y neg">−0.47</div>
+        <div class="yld">11.65%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> PIMCO high-leverage bond (34.49%). Premium +3.29% vs +3.77% avg — near own history. Z1Y −0.47, approaching fair value territory. Not a current holding; rate sensitivity mechanism similar to exited PDI.
+        </div>
+      </div>
+
+      <!-- CSQ -->
+      <div class="fund-row">
+        <div class="ticker col-o">CSQ</div>
+        <div class="price">$20.20</div>
+        <div class="dp neg">−9.30%</div>
+        <div class="z1y neg">−0.68</div>
+        <div class="yld">7.91%</div>
+        <div class="note">
+          <div class="badges"><span class="badge corp">Dist raised +10.2% Jul 2</span></div>
+          <span class="badge univ">Exited position</span> Fully exited. Distribution raised $0.1225→$0.135 (+10.2%), payable 07/21. Discount −9.30% vs −7.87% avg. Leveraged 28.34%. Included for universe completeness.
+        </div>
+      </div>
+
+    </div><!-- /fund-rows-wrap on sale -->
+  </div><!-- /on sale -->
+
+  <!-- ══ FAIR VALUE ══ -->
   <div class="val-block">
     <div class="val-block-hdr">
       <span class="val-tag fair">Fair Value</span>
@@ -321,95 +430,167 @@
     <div class="val-block-subtitle">Z1Y between −0.50 and +1.25. Discount or premium in line with 1-year average. No strong dislocation signal in either direction.</div>
 
     <div class="fund-col-hdr">
-      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Analyst Note</span>
+      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Yield</span><span>Analyst Note</span>
     </div>
+    <div class="fund-rows-wrap">
 
-    <!-- UTF -->
-    <div class="fund-row">
-      <div class="ticker green">UTF</div>
-      <div class="price">$27.77</div>
-      <div class="dp neg">−2.39%</div>
-      <div class="z1y pos">+0.59</div>
-      <div class="note">
-        Global infrastructure. Discount narrowing vs −4.59% avg (+2.20pt improvement) — moving in the right direction. Z1Y +0.59, Green quadrant. ST momentum +2.41%, LT +12.54% — strongest momentum profile in the utility/infrastructure sleeve. Leveraged 27.56%. Distribution source unconfirmed pending C&amp;S filing. YTD price return +18.69%.
+      <!-- AIO -->
+      <div class="fund-row">
+        <div class="ticker col-o">AIO<span class="hmark"></span></div>
+        <div class="price">$25.47</div>
+        <div class="dp neg">−7.89%</div>
+        <div class="z1y neg">−0.22</div>
+        <div class="yld">8.26%</div>
+        <div class="note">
+          Tech/alternatives. Z1Y −0.22 — approaching fair value. Discount 1.03pt wider than −6.86% avg. ST momentum −1.64%, LT +12.31%. YTD price return +34.12%, best in holdings universe. Distribution source unconfirmed. Leveraged 11.74%.
+        </div>
       </div>
-    </div>
 
-    <!-- UTG -->
-    <div class="fund-row">
-      <div class="ticker green">UTG</div>
-      <div class="price">$39.68</div>
-      <div class="dp pos">+0.61%</div>
-      <div class="z1y pos">+0.86</div>
-      <div class="note">
-        <div class="badges"><span class="badge record">Record Date Jul 17</span><span class="badge insider">Insider Buy Jun 24 &amp; 26</span></div>
-        Dislocation thesis fully resolved. Full round trip: Z1Y −3.99 (Jun 26 trough) → +0.86 at week's close. Discount closed from −4.92% to +0.61% premium. Record date 07/17 confirmed for first $0.21/share payment (raised from $0.20, +5%). NAV $39.44 reflects ex-dividend adjustment — expected. Two directors bought open market in June (580 + 500 shares) confirmed as the technical dislocation signal it appeared to be. Distribution primarily LT capital gains harvest with variable ROC. Position moves to normal monitoring.
+      <!-- GDV -->
+      <div class="fund-row">
+        <div class="ticker col-o">GDV</div>
+        <div class="price">$29.63</div>
+        <div class="dp neg">−11.03%</div>
+        <div class="z1y neg">−0.48</div>
+        <div class="yld">6.03%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Diversified equity. Discount −11.03% vs −10.72% avg — near own norm despite wide absolute discount. Z1Y −0.48. Leveraged 14.07%.
+        </div>
       </div>
-    </div>
 
-    <!-- ERH -->
-    <div class="fund-row">
-      <div class="ticker green">ERH</div>
-      <div class="price">$12.11</div>
-      <div class="dp neg">−6.32%</div>
-      <div class="z1y pos">+1.11</div>
-      <div class="note">
-        <div class="badges"><span class="badge dist-qual">ROC-primary ⚠</span></div>
-        Utility/energy. Z1Y +1.11, Green quadrant — discount narrowing vs −7.81% avg (+1.49pt improvement). Allspring (formerly Wells Fargo). Distribution: ~57–66% return of capital / 34–43% NII (rolling fiscal YTD, FYE Aug 31) — persistently above the 25% ROC alert threshold. Long-run 5-year avg NAV return of 9.37% vs 8.00% annualized distribution rate supports the overall program, but the ROC sourcing is structural. Active distribution quality flag. Leveraged 20.74%.
+      <!-- UTF -->
+      <div class="fund-row">
+        <div class="ticker col-g">UTF<span class="hmark"></span></div>
+        <div class="price">$27.77</div>
+        <div class="dp neg">−2.39%</div>
+        <div class="z1y pos">+0.59</div>
+        <div class="yld">7.12%</div>
+        <div class="note">
+          Global infrastructure. Discount narrowing vs −4.59% avg (+2.20pt). Green quadrant. ST momentum +2.41%, LT +12.54% — strongest momentum in utility/infra sleeve. Distribution source unconfirmed pending C&amp;S filing. Leveraged 27.56%.
+        </div>
       </div>
-    </div>
-  </div><!-- /fair value block -->
 
-  <!-- RICH -->
+      <!-- UTG -->
+      <div class="fund-row">
+        <div class="ticker col-g">UTG<span class="hmark"></span></div>
+        <div class="price">$39.68</div>
+        <div class="dp pos">+0.61%</div>
+        <div class="z1y pos">+0.86</div>
+        <div class="yld">6.27%</div>
+        <div class="note">
+          <div class="badges"><span class="badge record">Record Date Jul 17</span><span class="badge insider">Insider Buy Jun 24 &amp; 26</span></div>
+          Dislocation thesis fully resolved. Z1Y −3.99 trough (Jun 26) → +0.86 at week's close. NAV $39.44 reflects ex-div adjustment. First $0.21/share payment (raised +5%) record date confirmed. Two directors' open-market buying validated as dislocation signal. Position moves to normal monitoring.
+        </div>
+      </div>
+
+      <!-- ERH -->
+      <div class="fund-row">
+        <div class="ticker col-g">ERH<span class="hmark"></span></div>
+        <div class="price">$12.11</div>
+        <div class="dp neg">−6.32%</div>
+        <div class="z1y pos">+1.11</div>
+        <div class="yld">8.65%</div>
+        <div class="note">
+          <div class="badges"><span class="badge dist-qual">ROC-primary ⚠</span></div>
+          Utility/energy. Green quadrant, discount narrowing vs −7.81% avg (+1.49pt). Distribution ~57–66% ROC / 34–43% NII (rolling, FYE Aug 31) — persistently above 25% alert threshold. 5-year avg NAV return 9.37% vs 8.00% distribution rate supports long-run program. Active quality flag. Leveraged 20.74%.
+        </div>
+      </div>
+
+      <!-- HTD -->
+      <div class="fund-row">
+        <div class="ticker col-g">HTD</div>
+        <div class="price">$25.76</div>
+        <div class="dp neg">−3.77%</div>
+        <div class="z1y pos">+1.15</div>
+        <div class="yld">7.39%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Utility/equity income. Green quadrant. Discount narrowing from −6.18% avg (+2.41pt). Z1Y +1.15. Leveraged 31.00%. Z6M +1.08 — constructive across both timeframes. Not a current holding.
+        </div>
+      </div>
+
+    </div><!-- /fund-rows-wrap fair -->
+  </div><!-- /fair value -->
+
+  <!-- ══ RICH ══ -->
   <div class="val-block">
     <div class="val-block-hdr">
       <span class="val-tag rich">Rich</span>
       <h3>Expensive vs Own History</h3>
     </div>
-    <div class="val-block-subtitle">Z1Y ≥ +1.25. Trading at historically elevated valuations relative to own discount/premium history. Mean-reversion risk elevated.</div>
+    <div class="val-block-subtitle">Z1Y ≥ +1.25. Trading at historically elevated valuations. Mean-reversion risk elevated. Monitor for premium compression.</div>
 
     <div class="fund-col-hdr">
-      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Analyst Note</span>
+      <span>Ticker</span><span>Price</span><span>D/P</span><span>Z1Y</span><span>Yield</span><span>Analyst Note</span>
     </div>
+    <div class="fund-rows-wrap">
 
-    <!-- BME -->
-    <div class="fund-row">
-      <div class="ticker blue">BME</div>
-      <div class="price">$42.56</div>
-      <div class="dp neg">−3.29%</div>
-      <div class="z1y pos">+1.29</div>
-      <div class="note">
-        Healthcare equity. Discount narrowed to −3.29% vs −5.93% avg (+2.64pt improvement) — approaching fair value on that metric. Z1Y +1.29. Distribution 87% LT gains / 6% NII / 0% ROC — appreciation harvest fund, not income. YTD price return +8.56%. Unleveraged (0.16%). Monitoring for premium-reversion risk if healthcare equity momentum stalls.
+      <!-- BME -->
+      <div class="fund-row">
+        <div class="ticker col-b">BME<span class="hmark"></span></div>
+        <div class="price">$42.56</div>
+        <div class="dp neg">−3.29%</div>
+        <div class="z1y pos">+1.29</div>
+        <div class="yld">7.38%</div>
+        <div class="note">
+          Healthcare equity. Discount narrowed to −3.29% vs −5.93% avg (+2.64pt). Distribution 87% LT gains / 6% NII / 0% ROC — appreciation harvest. Unleveraged (0.16%). YTD price +8.56%.
+        </div>
       </div>
-    </div>
 
-    <!-- DNP -->
-    <div class="fund-row">
-      <div class="ticker blue">DNP</div>
-      <div class="price">$11.07</div>
-      <div class="dp pos">+9.80%</div>
-      <div class="z1y pos">+1.40</div>
-      <div class="note">
-        Utility income (Duff &amp; Phelps / Virtus). Premium +9.80% vs +5.88% avg (+3.92pt above own norm) — most stretched premium in the holdings universe. Z1Y +1.40. ST momentum +2.97%, LT +9.48% — both constructive, which is what's driving the premium. Distribution 51% LT gains / 31% NII / 18% ROC (Jun 2026 YTD) — ROC approaching but below the 25% alert threshold. Leveraged 22.41%. No action per framework, but premium mean-reversion risk is elevated at current levels.
+      <!-- DNP -->
+      <div class="fund-row">
+        <div class="ticker col-b">DNP<span class="hmark"></span></div>
+        <div class="price">$11.07</div>
+        <div class="dp pos">+9.80%</div>
+        <div class="z1y pos">+1.40</div>
+        <div class="yld">7.03%</div>
+        <div class="note">
+          Utility income (Duff &amp; Phelps / Virtus). Premium +9.80% vs +5.88% avg — most stretched premium in the holdings universe (+3.92pt above own norm). ST momentum +2.97%, LT +9.48% supporting the premium. Distribution 51% LT gains / 31% NII / 18% ROC — approaching ROC alert threshold. Leveraged 22.41%.
+        </div>
       </div>
-    </div>
-  </div><!-- /rich block -->
+
+      <!-- NXG -->
+      <div class="fund-row">
+        <div class="ticker col-b">NXG</div>
+        <div class="price">$58.81</div>
+        <div class="dp pos">+4.42%</div>
+        <div class="z1y pos">+1.75</div>
+        <div class="yld">11.86%</div>
+        <div class="note">
+          <span class="badge univ">Not held · Pass confirmed</span> Natural resources / commodities. Premium +4.42% vs −1.83% avg — trading well above own historical norm. Z1Y +1.75. YTD price +36.09%. Leveraged 28.59%. NXG initiation was removed — pass confirmed. Included for universe completeness.
+        </div>
+      </div>
+
+      <!-- ASGI -->
+      <div class="fund-row">
+        <div class="ticker col-b">ASGI</div>
+        <div class="price">$24.48</div>
+        <div class="dp pos">+9.83%</div>
+        <div class="z1y pos">+2.47</div>
+        <div class="yld">10.78%</div>
+        <div class="note">
+          <span class="badge univ">Not held</span> Global equity alternatives. Universe's most extreme positive Z1Y at +2.47 and premium +9.83% vs +2.11% avg — both historically stretched simultaneously. Not a current holding. No initiation thesis.
+        </div>
+      </div>
+
+    </div><!-- /fund-rows-wrap rich -->
+  </div><!-- /rich -->
+
 </div><!-- /valuation section -->
 
 <!-- DISTRIBUTION QUALITY -->
 <div class="section">
-  <div class="section-hdr"><h2>Distribution Quality</h2><span class="eyebrow">Source classification · Three-tier framework · Filings through 06/30/2026</span></div>
+  <div class="section-hdr"><h2>Distribution Quality</h2><span class="eyebrow">Source classification · Three-tier framework · Holdings only</span></div>
   <div class="nav-grid">
     <div class="nav-card earned">
       <h4>Earned Income — NII-primary</h4>
       <div class="frow"><b>BUI</b><span class="src">45% NII / 55% ST gains / 0% ROC</span></div>
       <div class="frow"><b>RNP</b><span class="src">57% NII / 6% ST / 37% LT / 0.5% ROC</span></div>
       <div class="frow"><b>PCN</b><span class="src">NII-primary inferred · 19(a) watch</span></div>
-      <p class="fnote">Recurring distribution sustainable independent of market appreciation. Primary source: net investment income from portfolio.</p>
+      <p class="fnote">Recurring distribution sustainable independent of market appreciation. Primary source: net investment income. Filings: BlackRock &amp; C&amp;S through 06/30/2026.</p>
     </div>
     <div class="nav-card harvest">
       <h4>Appreciation Harvest — Gains-primary</h4>
-      <div class="frow"><b>BME</b><span class="src">87% LT gains / 6% NII</span></div>
+      <div class="frow"><b>BME</b><span class="src">87% LT gains / 6% NII / 0% ROC</span></div>
       <div class="frow"><b>BST</b><span class="src">58% ST gains / 42% LT / 0% NII</span></div>
       <div class="frow"><b>EOI</b><span class="src">~88–100% LT gains</span></div>
       <div class="frow"><b>BDJ</b><span class="src">50% NII / 50% LT gains (mixed)</span></div>
@@ -418,13 +599,13 @@
       <div class="frow"><b>DNP</b><span class="src">51% LT / 31% NII / 18% ROC</span></div>
       <div class="frow"><b>AIO</b><span class="src">Unconfirmed — pending filing</span></div>
       <div class="frow"><b>UTF</b><span class="src">Unconfirmed — pending filing</span></div>
-      <p class="fnote">Distribution funded by realizing capital gains. Not traditional recurring income. Tax-efficient LT gains component for taxable accounts.</p>
+      <p class="fnote">Distribution funded by realizing capital gains. Not traditional recurring income. Tax-efficient LT gains component for taxable account holders.</p>
     </div>
     <div class="nav-card caution">
       <h4>ROC-Primary — Alert active ⚠</h4>
       <div class="frow"><b>RFI</b><span class="src">~71% ROC / 29% NII · Mar 2026 YTD</span></div>
       <div class="frow"><b>ERH</b><span class="src">~57–66% ROC / 34–43% NII · rolling</span></div>
-      <p class="fnote">ROC exceeds 25% alert threshold for both funds. Distributions partially returning principal. Long-run NAV total return records are supportive but current sourcing warrants ongoing monitoring.</p>
+      <p class="fnote">ROC exceeds 25% alert threshold. Distributions partially returning principal. Long-run NAV total return records are supportive but current sourcing warrants ongoing monitoring.</p>
     </div>
   </div>
 </div>
@@ -432,12 +613,12 @@
 <!-- KEY SIGNALS -->
 <div class="section">
   <div class="section-hdr"><h2>Key Signals This Week</h2><span class="eyebrow">Alerts · Triggers · Corporate actions</span></div>
-  <div class="alert-item ar"><span class="alert-tag">Red</span><b>RQI</b> — Three consecutive sessions of discount widening post-RO expiry. D/P −10.49% vs −3.46% avg (−7.03pt). NAV rising while price falls — pure price selling. Falsification test active. Session 2 of 2–3 clean observation window. No entry signal confirmed.</div>
-  <div class="alert-item ar"><span class="alert-tag">Red</span><b>BST</b> — Z1Y dropped −0.94pt in a single session (07/17) to −1.44. Largest single-session deterioration this week. NAV unchanged — entirely price-driven. Prior trigger zone (Z1Y ≤ −2.00) is 0.56pts away. Monitor Monday open.</div>
-  <div class="alert-item ar"><span class="alert-tag">Red</span><b>REIT sleeve (RNP / RFI)</b> — Both deepened for three consecutive sessions. RNP Z1Y −1.55, deviation −6.29pt. RFI Z1Y −1.66, deviation −4.92pt. ROC-primary flag active on RFI. Sector-level 10yr rate headwind identified as common driver.</div>
-  <div class="alert-item aa"><span class="alert-tag">Amber</span><b>BUI trigger — reset</b> — Z1Y zero-cross on 07/15 (+0.06) reversed to −0.57 on 07/16. Two-session confirmation rule reset. Next attempt with follow-through required to reopen 2nd-tranche window.</div>
-  <div class="alert-item ag"><span class="alert-tag">Green</span><b>UTG — thesis fully resolved</b> — Z1Y −3.99 peak dislocation (Jun 26) → +0.86 at week's close. Premium +0.61% intact post-record-date. Director buying confirmed signal. $0.21 distribution (raised rate) record date cleared 07/17.</div>
-  <div class="alert-item ap"><span class="alert-tag">Corp</span><b>RQI rights offering closed</b> — ~12.6M shares at $12.15 (28% of 44.8M max). ~$154M gross / ~$220M with leverage. Advisor paid all offering expenses. Actual NAV dilution under 1%.</div>
+  <div class="alert-item ar"><span class="alert-tag">Red</span><b>RQI</b> — Three consecutive sessions of discount widening post-RO expiry. D/P −10.49% vs −3.46% avg (−7.03pt). NAV rising while price falls. Falsification test active; session 2 of 2–3 clean observation window. No entry signal confirmed.</div>
+  <div class="alert-item ar"><span class="alert-tag">Red</span><b>BST</b> — Z1Y dropped −0.94pt in one session (07/17) to −1.44. Largest single-session deterioration in holdings universe this week. NAV $49.73 unchanged — entirely price-driven. Prior trigger zone (Z1Y ≤ −2.00) is 0.56pts away. Monitor Monday open.</div>
+  <div class="alert-item ar"><span class="alert-tag">Red</span><b>REIT sleeve (RQI / RNP / RFI)</b> — All three deepened for three consecutive sessions. 10yr yield at ~4.6% identified as the sector-level macro driver. RNP deviation −6.29pt; RFI deviation −4.92pt with active ROC-primary flag.</div>
+  <div class="alert-item aa"><span class="alert-tag">Amber</span><b>BUI trigger — reset</b> — Z1Y zero-cross 07/15 reversed to −0.57 on 07/16. Two-session confirmation rule reset. Next attempt with follow-through required to reopen 2nd-tranche window.</div>
+  <div class="alert-item ag"><span class="alert-tag">Green</span><b>UTG — thesis fully resolved</b> — Z1Y −3.99 peak (Jun 26) → +0.86 at week's close. Premium +0.61%. Director buying confirmed. $0.21 distribution record date cleared 07/17. Normal monitoring.</div>
+  <div class="alert-item ap"><span class="alert-tag">Corp</span><b>RQI rights offering closed</b> — ~12.6M shares at $12.15 (28% of 44.8M max). ~$154M gross / ~$220M with leverage. Advisor paid all expenses. Actual NAV dilution under 1%.</div>
 </div>
 
 <!-- CATALYST CALENDAR -->
@@ -447,18 +628,18 @@
     <thead><tr><th>Date</th><th>Fund</th><th>Event</th></tr></thead>
     <tbody>
       <tr><td>07/17 ✓</td><td>UTG</td><td>Record date — $0.21/share (first at raised rate). Ex-div NAV adjustment reflected in close.</td></tr>
-      <tr><td>07/20</td><td>All</td><td>Session 3 of RQI clean window. BST trigger proximity check. Weekend gap closes.</td></tr>
+      <tr><td>07/20</td><td>All</td><td>Session 3 of RQI clean window opens. BST trigger proximity check. Weekend gap closes.</td></tr>
       <tr><td>07/21</td><td>CSQ</td><td>Distribution payable $0.135/share (raised +10.2%). Not a current holding.</td></tr>
       <tr><td>07/31</td><td>RQI</td><td>Monthly distribution payable $0.090/share (record 07/06; new offering shares not eligible).</td></tr>
-      <tr><td>Aug 2026</td><td>UTG</td><td>Second $0.21/share distribution at raised rate. Record date 8/18.</td></tr>
+      <tr><td>Aug 2026</td><td>UTG</td><td>Second $0.21/share payment at raised rate. Record date 8/18.</td></tr>
       <tr><td>Aug–Sep</td><td>All</td><td>Monitor for AIO and UTF distribution source filings (both currently unconfirmed).</td></tr>
-      <tr><td>Ongoing</td><td>PCN</td><td>Fiscal year ended 06/30 — watch for annual report or 19(a) notice confirming source composition.</td></tr>
+      <tr><td>Ongoing</td><td>PCN</td><td>Fiscal year ended 06/30 — watch for annual report or 19(a) notice confirming distribution source.</td></tr>
     </tbody>
   </table>
 </div>
 
 <div class="footer">
-  <strong>Methodology:</strong> Quadrant classification uses Z1Y as the primary axis against Discount/Premium to NAV. Green = Z1Y ≥ 0 &amp; D/P &lt; 0; Blue = Z1Y ≥ 0 &amp; D/P ≥ 0; Orange = Z1Y &lt; 0 &amp; D/P &lt; 0; Gray = Z1Y &lt; 0 &amp; D/P ≥ 0. "On Sale / Fair Value / Rich" placement governed by Z1Y thresholds. Distribution quality based on most recent available sponsor filings; unconfirmed funds treated as neutral. Cost basis, share counts, and position sizes not disclosed in this report. Data sourced from CEF provider EOD feeds after 8pm ET.
+  <strong>Methodology:</strong> Quadrant classification uses Z1Y as the primary axis against Discount/Premium to NAV. Green = Z1Y ≥ 0 &amp; D/P &lt; 0; Blue = Z1Y ≥ 0 &amp; D/P ≥ 0; Orange = Z1Y &lt; 0 &amp; D/P &lt; 0; Gray = Z1Y &lt; 0 &amp; D/P ≥ 0. "On Sale / Fair Value / Rich" placement governed by Z1Y thresholds. Non-holdings included for universe completeness; dot marker (●) denotes current holdings. Distribution quality based on most recent available sponsor filings; unconfirmed funds treated as neutral until primary source data obtained. Cost basis, share counts, and position sizes not disclosed in this report. Data sourced from CEF provider EOD feeds after 8pm ET.
   <br><br>
   <em>For informational purposes only. Not investment advice. Past performance is no guarantee of future results. Always conduct your own due diligence before making investment decisions.</em>
 </div>
